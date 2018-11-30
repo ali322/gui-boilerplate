@@ -1,7 +1,6 @@
 # GUI Boilerplate
 
 [![Build Status](https://travis-ci.org/ali322/gui-boilerplate.svg?branch=master)](https://travis-ci.org/ali322/gui-boilerplate)
-[![Dependency Status](https://gemnasium.com/badges/github.com/ali322/gui-boilerplate.svg)](https://gemnasium.com/github.com/ali322/gui-boilerplate)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ba09b7efe52888308abc/maintainability)](https://codeclimate.com/github/ali322/ssr-boilerplate/maintainability)
 
 build gui application with electron + vue
