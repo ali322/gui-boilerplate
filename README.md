@@ -1,7 +1,7 @@
 # GUI Boilerplate
 
 [![Build Status](https://travis-ci.org/ali322/gui-boilerplate.svg?branch=master)](https://travis-ci.org/ali322/gui-boilerplate)
-[![Maintainability](https://api.codeclimate.com/v1/badges/ba09b7efe52888308abc/maintainability)](https://codeclimate.com/github/ali322/ssr-boilerplate/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e99864723feb8265a24b/maintainability)](https://codeclimate.com/github/ali322/gui-boilerplate/maintainability)
 
 build gui application with electron + vue
 
@@ -17,6 +17,9 @@ Directory structure
 ===
 
 ```sh
+config/
+  |-- base.js     # build and pack config
+  |-- entry.js    # webpack build entries
 script/
   |-- ...         # build and pack script
 app/
