@@ -5,7 +5,7 @@ require('./ipc')
 let win = null
 
 app.on('ready', () => {
-  win = openWindow('index/index.html')
+  win = openWindow('scene/index/index.html')
 })
 
 app.on('window-all-closed', () => {
@@ -16,7 +16,7 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (win === null) {
-    win = openWindow('index/index.html')
+    win = openWindow('scene/index/index.html')
   }
 })
 

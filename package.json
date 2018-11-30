@@ -11,7 +11,7 @@
     "pack:osx": "cross-env BUILD_TARGET=darwin node script/pack.js",
     "pack:win": "cross-env BUILD_TARGET=win32 node script/pack.js",
     "pack": "npm run pack:osx && npm run pack:win",
-    "test": "eslint -ext js,vue app"
+    "test": "eslint app"
   },
   "author": "alichen",
   "license": "MIT",
@@ -29,6 +29,7 @@
     "electron-packager": "^12.2.0",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-html": "^5.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.1",
