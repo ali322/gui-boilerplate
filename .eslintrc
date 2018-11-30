@@ -1,0 +1,20 @@
+{
+  "root": true,
+  "env": {
+    "browser": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "extends": [
+    "standard",
+    "plugin:vue/essential"
+  ],
+  "plugins": ["html"],
+  "rules": {
+    "indent": ["error", 2],
+    "eol-last": "off",
+    "space-before-function-paren": "off"
+  }
+}
