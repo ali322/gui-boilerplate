@@ -3,6 +3,8 @@ process.env.NODE_ENV = 'production'
 const packager = require('electron-packager')
 const path = require('path')
 const chalk = require('chalk')
+const { outputPath, icoPath } = require('../config/base')
+console.log(icoPath)
 
 const doneLog = chalk.bgGreen.white(' DONE ') + ' '
 const errorLog = chalk.bgRed.white(' ERROR ') + ' '
@@ -12,9 +14,9 @@ const buildConf = {
   arch: process.env.BUILD_TARGET === 'win32' ? 'ia32' : 'x64',
   asar: true,
   dir: path.join(__dirname, '../'),
-  icon: path.join(__dirname, '../icons/aid'),
+  icon: icoPath,
   ignore: /(^\/(src|test|\.[a-z]+|README|yarn|static|dist\/web))|\.gitkeep/,
-  out: path.join(__dirname, '../output'),
+  out: outputPath,
   overwrite: true,
   platform: process.env.BUILD_TARGET || 'all'
 }

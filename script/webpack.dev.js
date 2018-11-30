@@ -5,7 +5,8 @@ const mapValues = require('lodash/mapValues')
 const TidyStatsPlugin = require('tidy-stats-webpack-plugin')
 const InjectHtmlPlugin = require('inject-html-webpack-plugin')
 const base = require('./webpack.base')
-const entry = require('./entry')
+const {scenePath} = require('../config/base')
+const entry = require('../config/entry')
 const { cssLoaders, vueStyleLoaders, resolve } = require('./util')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
@@ -13,7 +14,7 @@ let htmls = Object.keys(entry).map(v => {
   return new InjectHtmlPlugin({
     transducer: '/hmr/',
     chunks: [v],
-    filename: resolve(join('app', 'scene', v, `${v}.html`))
+    filename: join(scenePath, v, `${v}.html`)
   })
 })
 

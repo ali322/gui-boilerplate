@@ -1,12 +1,13 @@
-const entry = require('./entry')
-const { resolve, urlLoaderOptions } = require('./util')
+const entry = require('../config/entry')
+const {buildPath} = require('../config/base')
+const { urlLoaderOptions } = require('./util')
 let extract = process.env.NODE_ENV === 'production'
 
 module.exports = {
   entry,
   target: 'electron-renderer',
   output: {
-    path: resolve('dist'),
+    path: buildPath,
     filename: '[name]/[name].js'
   },
   module: {

@@ -6,15 +6,16 @@ const InjectHtmlPlugin = require('inject-html-webpack-plugin')
 const { join, basename } = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const base = require('./webpack.base')
-const entry = require('./entry')
-const { resolve, cssLoaders, vueStyleLoaders } = require('./util')
+const {scenePath, buildPath} = require('../config/base')
+const entry = require('../config/entry')
+const { cssLoaders, vueStyleLoaders } = require('./util')
 
 let htmls = Object.keys(entry).map(v => {
   return new InjectHtmlPlugin({
     transducer: file => basename(file),
     chunks: [v],
-    output: resolve(join('dist', v, `${v}.html`)),
-    filename: resolve(join('app', v, `${v}.html`))
+    output: join(buildPath, v, `${v}.html`),
+    filename: join(scenePath, v, `${v}.html`)
   })
 })
 

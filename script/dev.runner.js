@@ -6,7 +6,7 @@ const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const { watch } = require('chokidar')
-
+const { mainPath, mainEntry, rendererPath} = require('../config/base')
 const rendererConfig = require('./webpack.dev')
 
 let electronProcess = null
@@ -58,7 +58,7 @@ function startRenderer () {
     })
 
     const server = new WebpackDevServer(compiler, {
-      contentBase: path.join(__dirname, '../app'),
+      contentBase: rendererPath,
       // hot: true,
       publicPath: '/hmr/',
       quiet: true,
@@ -75,7 +75,7 @@ function startRenderer () {
 }
 
 function startElectron () {
-  electronProcess = spawn(electron, ['main/index.dev.js', '--inspect=5858', '.'])
+  electronProcess = spawn(electron, [mainEntry, '--inspect=5858', '.'])
 
   electronProcess.stdout.on('data', data => {
     electronLog(data, 'blue')
@@ -107,7 +107,7 @@ function electronLog (data, color) {
 }
 
 function watchMain () {
-  watcher = watch(path.join(__dirname, '../main/'), {
+  watcher = watch(mainPath, {
     // eslint-disable-next-line
     ignored: /(^|[\/\\])\../,
     persistent: true
