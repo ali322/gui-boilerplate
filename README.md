@@ -9,22 +9,20 @@ Develop
 ===
 1. clone to your local disk `git clone https://github.com/ali322/gui-boilerplate`
 2. run `npm install`
-3. run `npm start` to start develop
-4. run `npm run pack` to pack
+3. run `npm run dll` to generate vendor dll files when first start
+4. run `npm start` to start develop
+5. run `npm run pack` to pack
 
 
 Directory structure
 ===
 
 ```sh
-config/
-  |-- base.js     # build and pack config
-  |-- entry.js    # webpack build entries
 script/
   |-- ...         # build and pack script
-app/
+renderer/
   |-- asset/      #images,fonts and so on
-  |-- scene/
+  |-- page/
       |-- index/  #index scene's entry js and css
       |-- .../    #more your own scene's entry js and css,like index page
 main/

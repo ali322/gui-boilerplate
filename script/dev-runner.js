@@ -1,21 +1,21 @@
 const chalk = require('chalk')
 const electron = require('electron')
 const path = require('path')
+const fs = require('fs')
 const { spawn } = require('child_process')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const webpackHotMiddleware = require('webpack-hot-middleware')
-const { pagePath, publicPath } = require('./constant')
-
+const { pagePath, publicPath, vendorPath, vendors } = require('./constant')
 const rendererConfig = require('./webpack.dev')
+const dllConfig = require('./webpack.dll')
 const mainConfig = require('./webpack.main')
 
 let electronProcess = null
 let manualRestart = false
 let hotMiddleware
-let watcher
 
-function logStats (proc, data) {
+function logStats(proc, data) {
   let log = ''
 
   log += chalk.yellow.bold(
@@ -43,7 +43,7 @@ function logStats (proc, data) {
   console.log(log)
 }
 
-function startRenderer () {
+function startRenderer() {
   return new Promise((resolve, reject) => {
     const compiler = webpack(rendererConfig)
     hotMiddleware = webpackHotMiddleware(compiler, {
@@ -63,7 +63,7 @@ function startRenderer () {
       compress: true,
       quiet: true,
       publicPath,
-      before (app, ctx) {
+      before(app, ctx) {
         app.use(hotMiddleware)
         ctx.middleware.waitUntilValid(() => {
           resolve()
@@ -75,8 +75,12 @@ function startRenderer () {
   })
 }
 
-function startElectron () {
-  electronProcess = spawn(electron, ['main/index-dev.js', '--inspect=5858', '.'])
+function startElectron() {
+  electronProcess = spawn(electron, [
+    'main/index-dev.js',
+    '--inspect=5858',
+    '.'
+  ])
 
   electronProcess.stdout.on('data', data => {
     electronLog(data, 'blue')
@@ -90,7 +94,7 @@ function startElectron () {
   })
 }
 
-function electronLog (data, color) {
+function electronLog(data, color) {
   let log = ''
   data = data.toString().split(/\r?\n/)
   data.forEach(line => {
@@ -122,22 +126,27 @@ function startMain() {
   }
   return new Promise((resolve, reject) => {
     const compiler = webpack(mainConfig)
-    compiler.watch({
-      aggregateTimeout: 300
-    }, (err, stats) => {
-      logStats('Main', stats)
-      resolve()
-      onChange()
-    })
+    compiler.watch(
+      {
+        aggregateTimeout: 300
+      },
+      (err, stats) => {
+        logStats('Main', stats)
+        resolve()
+        onChange()
+      }
+    )
   })
 }
 
-function start () {
-  Promise.all([startMain(), startRenderer()]).then(() => {
-    startElectron()
-  }).catch(err => {
-    console.error(err)
-  })
+function start() {
+  Promise.all([startMain(), startRenderer()])
+    .then(() => {
+      startElectron()
+    })
+    .catch(err => {
+      console.error(err)
+    })
 }
 
 start()
