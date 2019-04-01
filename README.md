@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/ali322/gui-boilerplate.svg?branch=master)](https://travis-ci.org/ali322/gui-boilerplate)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e99864723feb8265a24b/maintainability)](https://codeclimate.com/github/ali322/gui-boilerplate/maintainability)
 
-build gui application with electron + vue
+build gui application with electron + vue in typescript
 
 Develop
 ===
