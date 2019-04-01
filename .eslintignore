@@ -1,3 +1,5 @@
 dist
-node_modules
 script
+build
+node_modules
+**/*.d.ts

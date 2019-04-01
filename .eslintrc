@@ -1,23 +1,23 @@
 {
   "root": true,
-  "env": {
-    "browser": true
-  },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "parser": "babel-eslint",
-    "ecmaVersion": 2017,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "experimentalDecorators": true
+    }
   },
   "extends": [
-    "standard",
-    "plugin:vue/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "standard"
   ],
-  "plugins": ["html"],
+  "plugins": ["@typescript-eslint"],
   "rules": {
-    "indent": ["error", 2],
-    "eol-last": "off",
-    "semi": [0],
     "space-before-function-paren": "off",
-    "vue/max-attributes-per-line": "off"
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/no-var-requires": "off"
   }
 }

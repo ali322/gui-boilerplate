@@ -1,5 +1,9 @@
 {
-  "presets": [
-      ["env", { "modules": false }]
+  "presets": [["babel-preset-env", { "modules": false }]],
+  "plugins": [
+    "transform-runtime",
+    "syntax-jsx",
+    "transform-vue-jsx",
+    "transform-object-rest-spread"
   ]
 }

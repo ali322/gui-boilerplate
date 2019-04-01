@@ -1,55 +1,47 @@
 const merge = require('webpack-merge')
 const webpack = require('webpack')
-const { join } = require('path')
+const base = require('./webpack.base')
 const mapValues = require('lodash/mapValues')
 const TidyStatsPlugin = require('tidy-stats-webpack-plugin')
 const InjectHtmlPlugin = require('inject-html-webpack-plugin')
-const base = require('./webpack.base')
-const {scenePath} = require('../config/base')
-const entry = require('../config/entry')
-const { cssLoaders, vueStyleLoaders, resolve } = require('./util')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
-let htmls = Object.keys(entry).map(v => {
-  return new InjectHtmlPlugin({
-    transducer: '/hmr/',
-    chunks: [v],
-    filename: join(scenePath, v, `${v}.html`)
-  })
-})
+const { join, posix } = require('path')
+const entry = require('./entry')
+const { pagePath, distPath, vendorPath, publicPath, vendorURL } = require('./constant')
 
 module.exports = merge(base, {
-  entry: mapValues(entry, v => {
-    return [join(__dirname, 'dev.client.js'), v]
-  }),
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: cssLoaders({isDev: true})
-      },
-      {
-        test: /\.less$/,
-        use: cssLoaders({isDev: true}, 'less')
-      },
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader'
-      }
-    ]
-  },
+  entry: mapValues(entry, v => [join(__dirname, 'dev-client.js')].concat(v)),
   output: {
-    publicPath: '/hmr/'
+    publicPath
   },
-  mode: 'development',
   devtool: '#source-map',
+  stats: 'none',
+  devServer: {
+    // contentBase: distPath,
+    compress: true
+  },
   node: {
-    __dirname: process.env.NODE_ENV !== 'production',
-    __filename: process.env.NODE_ENV !== 'production'
+    __dirname: true,
+    __filename: true
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new VueLoaderPlugin(),
-    new TidyStatsPlugin({ ignoreAssets: true })
-  ].concat(htmls)
+    // new TidyStatsPlugin({ ignoreAssets: true }),
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      manifest: join(vendorPath, 'main-manifest.json')
+    })
+  ].concat(
+    Object.keys(entry).map(
+      k =>
+        new InjectHtmlPlugin({
+          transducer: '/hmr/',
+          chunks: [k],
+          filename: join(pagePath, k, 'index.html'),
+          more: {
+            js: [posix.join(vendorURL, 'main-vendor.js')],
+            css: [posix.join(vendorURL, 'main-vendor.css')]
+          }
+        })
+    )
+  )
 })

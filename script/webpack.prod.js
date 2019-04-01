@@ -1,44 +1,23 @@
-const merge = require('webpack-merge')
 const webpack = require('webpack')
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
-// const TidyStatsPlugin = require('tidy-stats-webpack-plugin')
+const merge = require('webpack-merge')
 const InjectHtmlPlugin = require('inject-html-webpack-plugin')
-const { join, basename } = require('path')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
+const TidyStatsPlugin = require('tidy-stats-webpack-plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const base = require('./webpack.base')
-const {scenePath, buildPath} = require('../config/base')
-const entry = require('../config/entry')
-const { cssLoaders, vueStyleLoaders } = require('./util')
-
-let htmls = Object.keys(entry).map(v => {
-  return new InjectHtmlPlugin({
-    transducer: file => basename(file),
-    chunks: [v],
-    output: join(buildPath, v, `${v}.html`),
-    filename: join(scenePath, v, `${v}.html`)
-  })
-})
+const entry = require('./entry')
+const {
+  pagePath,
+  distPath,
+  vendorPath,
+  vendorURLOfProd
+} = require('./constant')
+const { basename, join, posix } = require('path')
 
 module.exports = merge(base, {
   entry,
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: cssLoaders({ isDev: false })
-      },
-      {
-        test: /\.less$/,
-        use: cssLoaders({ isDev: false }, 'less')
-      },
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader'
-      }
-    ]
-  },
   devtool: false,
-  mode: 'production',
+  stats: 'minimal',
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
@@ -46,10 +25,30 @@ module.exports = merge(base, {
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
-    new VueLoaderPlugin(),
     new MiniCSSExtractPlugin({
       filename: '[name]/[name].css'
+    }),
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      manifest: join(vendorPath, 'main-manifest.json')
+    }),
+    new TidyStatsPlugin({
+      identifier: 'renderer'
     })
-    // new TidyStatsPlugin()
-  ].concat(htmls)
+    // new BundleAnalyzerPlugin()
+  ].concat(
+    Object.keys(entry).map(
+      k =>
+        new InjectHtmlPlugin({
+          transducer: file => basename(file),
+          chunks: [k],
+          output: join(distPath, k, 'index.html'),
+          filename: join(pagePath, k, 'index.html'),
+          more: {
+            js: [posix.join(vendorURLOfProd, 'main-vendor.js')],
+            css: [posix.join(vendorURLOfProd, 'main-vendor.css')]
+          }
+        })
+    )
+  )
 })
