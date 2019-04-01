@@ -33,10 +33,10 @@ const win: Electron.BrowserWindow = remote.getCurrentWindow()
 })
 export default class App extends Vue {
   updateVisible: boolean = false
-  updating: boolean = true
+  updating: boolean = false
   updateVersion: string = ''
   downloadSpeed: number = 0
-  updatePercent: number = 30
+  updatePercent: number = 0
 
   mounted() {
     ipcRenderer.on('update-available', (info: any) => {
