@@ -9,7 +9,7 @@ app.on('ready', () => {
   let menus = attachMenu(app)
   const menu = Menu.buildFromTemplate(menus)
   Menu.setApplicationMenu(menu)
-  win = openWindow('index')
+  win = openWindow('updater')
 })
 
 app.on('window-all-closed', () => {

@@ -2,6 +2,7 @@
   <div class="window updater-window">
     <toolbar></toolbar>
     <div class="updater-info" v-if="updating">
+      <updater-progress :percent="updatePercent"></updater-progress>
       <p v-if="updatePercent < 100">正在下载更新...( {{downloadSpeed}}kb/s )</p>
       <p v-else>下载完成应用重启中...</p>
     </div>
@@ -20,20 +21,22 @@ import Vue from 'vue'
 import { ipcRenderer, remote } from 'electron'
 import { Component } from 'vue-property-decorator'
 import Toolbar from '@/component/toolbar.vue'
+import UpdaterProgress from '@/component/progress.vue'
 
 const win: Electron.BrowserWindow = remote.getCurrentWindow()
 
 @Component({
   components: {
-    Toolbar
+    Toolbar,
+    UpdaterProgress
   }
 })
 export default class App extends Vue {
   updateVisible: boolean = false
-  updating: boolean = false
+  updating: boolean = true
   updateVersion: string = ''
   downloadSpeed: number = 0
-  updatePercent: number = 0
+  updatePercent: number = 30
 
   mounted() {
     ipcRenderer.on('update-available', (info: any) => {

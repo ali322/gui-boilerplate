@@ -1,5 +1,16 @@
+html,body{
+  margin:0;
+  padding:0;
+  height: 100%;
+  width: 100%;
+  font-family: "PingFang SC,Microsoft Yahei,sans-serif";
+}
+
 .updater-window{
   text-align: center;
+  background: #FFF;
+  height: 100%;
+  padding: 0 12px;
   .updater-info {
     padding-top: 35px;
     .updater-progress{
@@ -7,12 +18,23 @@
     }
   }
   p {
-    color: initial;
+    font-size: 12px;
+    color: #333;
   }
   .btns{
     padding-top: 8px;
+    button{
+      border: 1px solid #dde3e6;
+      background: #FFF;
+      border-radius: 4px;
+      padding: 0 8px;
+      line-height: 28px;
+    }
     &>button:first-child{
       margin-right: 12px;
+      background-color: #2d98ff;
+      border-color: #2d98ff;
+      color: #FFF;
     }
   }
 }
