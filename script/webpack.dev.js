@@ -26,7 +26,7 @@ module.exports = merge(base, {
         use: [
           'react-hot-loader/webpack',
           // 'babel-loader',
-          'awesome-typescript-loader'
+          'ts-loader'
         ]
       },
     ]

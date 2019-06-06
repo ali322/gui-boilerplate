@@ -16,6 +16,15 @@ const { basename, join, posix } = require('path')
 
 module.exports = merge(base, {
   entry,
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loader: 'ts-loader'
+      },
+    ]
+  },
   devtool: false,
   stats: 'minimal',
   plugins: [

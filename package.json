@@ -17,6 +17,10 @@
     "sign": "electron-osx-sign output/aid-client-darwin-x64/aid-client.app",
     "lint": "eslint renderer"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ali322/gui-boilerplate.git"
+  },
   "author": "alichen",
   "license": "MIT",
   "devDependencies": {
@@ -33,12 +37,9 @@
     "@types/semver": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^1.4.2",
     "@typescript-eslint/parser": "^1.4.2",
-    "awesome-typescript-loader": "^5.2.1",
     "chunk-asset-webpack-plugin": "0.0.2",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.0",
-    "date-fns": "^1.30.1",
-    "download-git-repo": "^1.1.0",
     "electron": "^1.8.3",
     "electron-builder": "^20.39.0",
     "electron-debug": "^2.0.0",
@@ -55,8 +56,6 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^5.2.2",
     "file-loader": "^3.0.1",
-    "form-data": "^2.3.3",
-    "globby": "^9.1.0",
     "inject-html-webpack-plugin": "0.0.39",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
