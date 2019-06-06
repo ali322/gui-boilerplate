@@ -10,7 +10,7 @@ module.exports = fromPairs(
     return [
       key,
       [
-        join(pagePath, key, 'index.js'),
+        join(pagePath, key, 'index.tsx'),
         join(pagePath, key, 'index.less')
       ]
     ]

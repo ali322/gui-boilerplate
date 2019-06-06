@@ -15,7 +15,7 @@ exports.urlLoaderOptions = (extract = false) => {
 }
 
 exports.cssLoaders = (extract = false, precessor = '') => {
-  let loaders = ['vue-style-loader', 'css-loader', 'resolve-url-loader']
+  let loaders = ['style-loader', 'css-loader', 'resolve-url-loader']
   if (precessor) {
     loaders.push({
       loader: `${precessor}-loader`,

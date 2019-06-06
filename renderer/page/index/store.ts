@@ -1,27 +1,17 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { observable, action } from 'mobx'
 
-Vue.use(Vuex)
+class RootStore {
+  @observable count = 0
 
-interface InitialState{
-  count: number;
+  @action.bound
+  increase(): void {
+    this.count += 1
+  }
+
+  @action.bound
+  decrease(): void {
+    this.count -= 1
+  }
 }
 
-const store = new Vuex.Store({
-  state: {
-    count: 1
-  },
-  mutations: {
-    increase(state: InitialState) {
-      state.count += 1
-    },
-    decrease(state: InitialState) {
-      state.count -= 1
-    },
-    setExact(state: InitialState, payload: number) {
-      state.count = payload
-    }
-  }
-})
-
-export default store
+export default new RootStore()

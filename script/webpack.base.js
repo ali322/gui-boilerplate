@@ -1,4 +1,4 @@
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const webpack = require('webpack')
 const { urlLoaderOptions, cssLoaders , resolve } = require('./util')
 const { distPath } = require('./constant')
 
@@ -9,36 +9,11 @@ module.exports = {
   mode: isProd ? 'production' : 'development',
   module: {
     rules: [
-      {
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        use: [
-          'babel-loader',
-          {
-            loader: 'ts-loader',
-            options: {
-              appendTsSuffixTo: [/\.vue$/],
-              appendTsxSuffixTo: [/\.vue$/]
-            }
-          }
-        ]
-      },
       // {
-      //   test: /\.js$/,
-      //   loader: 'babel-loader',
-      //   exclude: /node_modules/
+      //   test: /\.(js|jsx)$/,
+      //   loader: 'react-hot-loader/webpack',
+      //   include: /node_modules/
       // },
-      {
-        test: /\.vue$/,
-        use: [
-          {
-            loader: 'vue-loader', 
-            options: {
-              esModule: true
-            }
-        }
-        ]
-      },
       {
         test: /\.css$/,
         use: cssLoaders(isProd)
@@ -66,12 +41,13 @@ module.exports = {
   },
   resolve: {
     alias: {
-      vue: 'vue/dist/vue.esm.js',
       '@': resolve('renderer')
     },
     extensions: ['.ts', '.tsx', '.js']
   },
   plugins: [
-    new VueLoaderPlugin()
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(isProd ? 'production' : 'development')
+    })
   ]
 }

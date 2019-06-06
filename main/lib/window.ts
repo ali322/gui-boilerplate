@@ -37,7 +37,7 @@ function createWindow(
     autoHideMenuBar: true,
     transparent: false,
     hasShadow: true,
-    backgroundColor: '#282A30',
+    backgroundColor: '#F5F5F5',
     titleBarStyle: 'default'
   }
   let opts = merge(defaults, options)

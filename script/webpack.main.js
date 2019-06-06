@@ -7,7 +7,6 @@ const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
   target: 'electron-main',
-  // target: 'node',
   mode: isProd ? 'production' : 'development',
   entry: entryOfMain,
   stats: 'minimal',

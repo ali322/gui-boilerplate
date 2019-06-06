@@ -12,6 +12,6 @@ exports.distPathOfMain = resolve('dist', 'main')
 exports.entryOfMain = resolve('main', 'index')
 
 exports.vendors = {
-  js: ['vue', 'vue-router', 'vuex', 'lodash'],
+  js: ['react', 'react-dom', 'react-router-dom', 'lodash'],
   css: ['@fortawesome/fontawesome-free/css/all.css']
 }

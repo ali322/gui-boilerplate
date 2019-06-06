@@ -20,8 +20,7 @@ const vendorJSConf = {
   },
   resolve: {
     alias: {
-      vue: 'vue/dist/vue.esm.js',
-      'vue-router': 'vue-router/dist/vue-router.esm.js'
+      // 'react-dom': '@hot-loader/react-dom'
     },
     extensions: ['.json', '.js']
   },
