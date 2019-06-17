@@ -16,7 +16,7 @@ const {
 
 module.exports = merge(base, {
   entry: mapValues(entry, v =>
-    ['react-hot-loader/patch',join(__dirname, 'dev-client.js')].concat(v)
+    ['webpack-hot-middleware/client?&reload=true', 'react-hot-loader/patch'].concat(v)
   ),
   module: {
     rules: [
@@ -36,10 +36,6 @@ module.exports = merge(base, {
   },
   devtool: '#source-map',
   stats: 'errors-only',
-  devServer: {
-    // contentBase: distPath,
-    compress: true
-  },
   node: {
     __dirname: true,
     __filename: true

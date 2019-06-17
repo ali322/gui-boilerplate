@@ -1,17 +1,6 @@
 import * as React from 'react'
 import { render } from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
-import Router from './router'
+import Root from './root'
 
-render(<AppContainer>
-  <Router />
-</AppContainer>, document.getElementById('app'))
+render(<Root />, document.getElementById('app'))
 
-if ((module as any).hot) {
-  (module as any).hot.accept('./router', () => {
-    const Next = require('./router').default
-    render(<AppContainer>
-      <Next />
-    </AppContainer>, document.getElementById('app'))
-  })
-}

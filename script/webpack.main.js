@@ -9,7 +9,7 @@ module.exports = {
   target: 'electron-main',
   mode: isProd ? 'production' : 'development',
   entry: entryOfMain,
-  stats: 'minimal',
+  stats: 'errors-only',
   devtool: '#source-map',
   module: {
     rules: [
@@ -37,8 +37,7 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       minimize: isProd
     }),
-    new TidyStatsPlugin({
-      identifier: 'main'
-    })
-  ]
+  ].concat(isProd ? [new TidyStatsPlugin({
+    identifier: 'main'
+  })] : [])
 }

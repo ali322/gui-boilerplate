@@ -48,11 +48,7 @@ function startRenderer() {
     const compiler = webpack(rendererConfig)
     hotMiddleware = webpackHotMiddleware(compiler, {
       log: false,
-      heartbeat: 2500
-    })
-
-    compiler.hooks.compilation.tap('dev.runner', compilation => {
-      hotMiddleware.publish({ action: 'reload' })
+      // heartbeat: 2500
     })
 
     compiler.hooks.done.tap('dev.runner', stats => {
@@ -60,6 +56,8 @@ function startRenderer() {
     })
 
     const server = new WebpackDevServer(compiler, {
+      hot: false,
+      liveReload: false,
       compress: true,
       quiet: true,
       publicPath,
