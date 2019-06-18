@@ -16,7 +16,10 @@ const {
 
 module.exports = merge(base, {
   entry: mapValues(entry, v =>
-    ['webpack-hot-middleware/client?&reload=true', 'react-hot-loader/patch'].concat(v)
+    [
+      'webpack-hot-middleware/client?&reload=true',
+      'react-hot-loader/patch'
+    ].concat(v)
   ),
   module: {
     rules: [
@@ -28,7 +31,7 @@ module.exports = merge(base, {
           // 'babel-loader',
           'ts-loader'
         ]
-      },
+      }
     ]
   },
   output: {

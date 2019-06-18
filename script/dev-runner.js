@@ -4,7 +4,9 @@ const path = require('path')
 const fs = require('fs')
 const { spawn } = require('child_process')
 const webpack = require('webpack')
-const WebpackDevServer = require('webpack-dev-server')
+const createServer = require('nva-server')
+const express = require('express')
+const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const { pagePath, publicPath, vendorPath, vendors } = require('./constant')
 const rendererConfig = require('./webpack.dev')
@@ -46,30 +48,29 @@ function logStats(proc, data) {
 function startRenderer() {
   return new Promise((resolve, reject) => {
     const compiler = webpack(rendererConfig)
-    hotMiddleware = webpackHotMiddleware(compiler, {
-      log: false,
-      // heartbeat: 2500
-    })
-
     compiler.hooks.done.tap('dev.runner', stats => {
       logStats('Renderer', stats)
     })
 
-    const server = new WebpackDevServer(compiler, {
-      hot: false,
-      liveReload: false,
-      compress: true,
-      quiet: true,
+    const app = express()
+    app.use(express.static('.', {
+      dotfiles: 'deny'
+    }))
+    const devMiddleware = webpackDevMiddleware(compiler, {
       publicPath,
-      before(app, ctx) {
-        app.use(hotMiddleware)
-        ctx.middleware.waitUntilValid(() => {
-          resolve()
-        })
+      compress: true,
+      stats: {
+        colors: true
       }
     })
-
-    server.listen(8080)
+    devMiddleware.waitUntilValid(() => {
+      resolve()
+    })
+    app.use(devMiddleware)
+    app.use(webpackHotMiddleware(compiler, {
+      log: false
+    }))
+    app.listen(8080)
   })
 }
 
