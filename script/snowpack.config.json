@@ -1,0 +1,15 @@
+{
+  "extends": "@snowpack/app-scripts-react",
+  "exclude": [
+    "**/node_modules/**/*",
+    "**/script/**/*",
+    "**/main/**/*"
+  ],
+  "mount": {
+    "renderer": "/_dist_",
+    "static": "/"
+  },
+  "plugins": [
+    ["@snowpack/plugin-typescript"]
+  ]
+}
