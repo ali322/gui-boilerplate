@@ -25,7 +25,8 @@ const start = () => {
         output: resolve('output')
       },
       files: [
-        '**/dist/**/*'
+        '**/dist/**/*',
+        '**/main/**/*',
       ],
       dmg: {
         contents: [

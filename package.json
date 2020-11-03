@@ -2,24 +2,35 @@
   "name": "gui-boilerplate",
   "version": "0.0.1",
   "description": "gui boilerplate",
-  "main": "dist/main/index.js",
+  "main": "main/index.js",
+  "homepage": ".",
   "scripts": {
     "clean": "rimraf dist/renderer",
-    "start:electron": "electron ./main",
+    "start:electron": "cross-env TS_NODE_PROJECT=script/tsconfig.main.json electron -r ts-node/register ./main",
     "start:main": "nodemon --watch main  -e js,json --exec 'npm run start:electron'",
-    "start:renderer": "snowpack dev --config script/snowpack.config.json",
-    "lint": "eslint renderer"
+    "start": "snowpack dev --config script/snowpack.dev.js",
+    "build": "snowpack build --config script/snowpack.prod.js",
+    "build:main": "rimraf dist/main && rollup --config script/rollup.main.js",
+    "pack:mac": "cross-env BUILD_TARGET=darwin node script/builder.js",
+    "pack:win": "cross-env BUILD_TARGET=win32 node script/builder.js",
+    "pack": "npm run pack:mac && npm run pack:win",
+    "test": "electron dist/main/index.js"
   },
   "author": "alichen",
   "license": "MIT",
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-typescript": "^6.1.0",
     "@snowpack/app-scripts-react": "^1.12.6",
+    "@snowpack/plugin-run-script": "^2.2.0",
+    "@snowpack/plugin-sass": "^1.1.1",
     "@snowpack/plugin-typescript": "^1.1.0",
     "@types/react": "^16.9.55",
     "@types/react-dom": "^16.9.9",
-    "concurrently": "^5.3.0",
-    "electron": "4.0.8",
+    "@types/snowpack-env": "^2.3.0",
+    "cross-env": "^7.0.2",
+    "electron": "4",
     "electron-builder": "22.6.1",
     "eslint": "^5.15.1",
     "eslint-config-standard": "^12.0.0",
@@ -31,8 +42,10 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "rimraf": "^3.0.2",
+    "rollup-plugin-node-externals": "^2.2.0",
+    "rollup-plugin-terser": "^7.0.2",
     "snowpack": "^2.16.1",
     "ts-node": "^9.0.0",
-    "typescript": "^3.3.3333"
+    "typescript": "4.0.5"
   }
 }
