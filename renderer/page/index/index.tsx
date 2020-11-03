@@ -6,5 +6,5 @@ import './index.scss'
 ReactDOM.render(<App />, document.getElementById('app'))
 
 if (import.meta.hot) {
-  import.meta.hot.accept()
+  import.meta.hot!.accept()
 }

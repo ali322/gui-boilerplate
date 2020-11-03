@@ -1,29 +1,14 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "lib": ["dom", "esnext"],
-    "module": "es2015",
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "sourceMap": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitAny": true,
-    "jsx": "react",
     "allowJs": true,
     "baseUrl": "renderer",
     "paths": {
       "@/*": ["./*"],
-      "*": ["../typings/*"]
+      "*": ["web_modules/.types/*"]
     }
   },
-  "include": [
-    "main"
-  ],
+  "extends": "@snowpack/app-scripts-react/tsconfig.base.json",
+  "include": ["renderer"],
   "exclude": ["node_modules"],
   "compileOnSave": false
 }

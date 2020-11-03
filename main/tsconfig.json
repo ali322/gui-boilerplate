@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "allowJs": true,
+    "paths": {
+      "@/*": ["./*"],
+      "*": ["../typings/*"]
+    }
+  },
+  "include": ["./"],
+  "exclude": ["../node_modules"],
+  "compileOnSave": false
+}

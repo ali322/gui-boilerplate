@@ -20,7 +20,9 @@ export default {
     nodeResolve({
       preferBuiltins: false
     }),
-    typescript(),
+    typescript({
+      tsconfig: resolve('main/tsconfig.json')
+    }),
     terser()
   ]
 }

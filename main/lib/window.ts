@@ -21,7 +21,7 @@ import { format } from 'url'
 // }
 
 function createWindow(
-    path: string = join('index', 'index.html'),
+    path: string = join('index.html'),
     options: Record<string, any> = {}
 ) {
     let defaults = {
@@ -41,7 +41,7 @@ function createWindow(
         hasShadow: true,
         backgroundColor: '#282A30'
     }
-    let opts = Object.assign({},defaults, options)
+    let opts = Object.assign({}, defaults, options)
     let win: any = new BrowserWindow(opts)
     if (process.env.NODE_ENV === 'development') {
         win.loadURL(`http://localhost:8080/renderer/scene/${path}`)
